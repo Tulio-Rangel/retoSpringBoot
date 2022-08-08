@@ -1,4 +1,4 @@
-package com.retoSpringBoot.retoSpringBoot;
+package com.sophos.retoSpringBoot;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
