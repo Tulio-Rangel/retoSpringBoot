@@ -14,7 +14,7 @@ public class ClientController {
     @Autowired
     ClientService clientService;
 
-    @GetMapping
+    @GetMapping("/{clientId}")
     @ResponseBody
     public ResponseEntity<Client> readClient(@PathVariable("clientId") Long clientId) {
         Client response = null;
