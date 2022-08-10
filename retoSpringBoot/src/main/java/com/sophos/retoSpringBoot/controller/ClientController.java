@@ -9,12 +9,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/client")
+@RequestMapping("/api")
 public class ClientController {
     @Autowired
     ClientService clientService;
 
-    @GetMapping("/{clientId}")
+    @GetMapping("/client/{clientId}")
     @ResponseBody
     public ResponseEntity<Client> readClient(@PathVariable("clientId") Long clientId) {
         Client response = null;
@@ -36,7 +36,7 @@ public class ClientController {
         }
     }
 
-    @PostMapping
+    @PostMapping("/client")
     @ResponseBody
     public ResponseEntity<Client> createClient(@RequestBody Client client) {
         Client response = null;
@@ -51,6 +51,29 @@ public class ClientController {
             } else {
                 status = HttpStatus.BAD_REQUEST;
                 message = "El cliente no pudo ser creado";
+                return ResponseEntity.status(status).body(response);
+            }
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    @DeleteMapping("/client/{clientId}")
+    @ResponseBody
+    public ResponseEntity<Client> deleteClient(@PathVariable("clientId") Long clientId) {
+        Client response = null;
+        HttpStatus status = null;
+        String message = null;
+        try {
+            response = clientService.readClient(clientId);
+            if (response != null) {
+                clientService.deleteClient(clientId);
+                status = HttpStatus.ACCEPTED;
+                message = "Cliente eliminado satisfactoriamente";
+                return ResponseEntity.status(status).body(response);
+            } else {
+                status = HttpStatus.BAD_REQUEST;
+                message = "El cliente con el id " +clientId+ " no pudo ser eliminado";
                 return ResponseEntity.status(status).body(response);
             }
         } catch (Exception e) {

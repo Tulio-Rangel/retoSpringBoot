@@ -6,5 +6,5 @@ public interface ClientService {
     Client createClient(Client client);
     Client readClient(Long clientId);
     Client updateClient(Client client);
-    boolean deleteClient(Client client);
+    void deleteClient(Long clientId);
 }

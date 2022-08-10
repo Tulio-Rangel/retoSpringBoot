@@ -34,7 +34,7 @@ public class ClientServiceImp implements ClientService {
     }
 
     @Override
-    public boolean deleteClient(Client client) {
-        return false;
+    public void deleteClient(Long clientId) {
+        clientRepository.deleteById(clientId);
     }
 }

@@ -1,7 +1,11 @@
 package com.sophos.retoSpringBoot.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name ="clients")
@@ -34,14 +38,19 @@ public class Client {
     private String secondLastName;
     @Column(name = "birthday", nullable = false)
     private Date birthday;
-    @Column(name = "creation_date", nullable = false)
+    @Column(name = "creation_date", nullable = true, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Date creationDate;
     @Column(name = "user_creation", nullable = false)
     private String userCreation;
-    @Column(name = "modification_date", nullable = false)
+    @Column(name = "modification_date", nullable = true, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Date modificationDate;
     @Column(name = "user_modification", nullable = false)
     private String userModification;
+
+    //Relation with Accounts
+    @OneToMany
+    @JoinColumn(name = "id_account")
+    private List<Account> accounts;
 
     //Constructors
     public Client() {
@@ -201,5 +210,14 @@ public class Client {
 
     public void setUserModification(String userModification) {
         this.userModification = userModification;
+    }
+
+    //Get & Set Accounts
+    public List<Account> getAccounts() {
+        return accounts;
+    }
+
+    public void setAccounts(List<Account> accounts) {
+        this.accounts = accounts;
     }
 }
