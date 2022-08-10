@@ -80,4 +80,30 @@ public class ClientController {
             return null;
         }
     }
+
+    @PutMapping("/client/{clientId}")
+    @ResponseBody
+    public ResponseEntity<Object> updateClient(@PathVariable(name = "clientId") Long clientId, @RequestBody Client client) {
+        class Error {
+            public String message;
+            public Error(String message) {
+                this.message = message;
+            }
+            public String getMessage() {
+                return message;
+            }
+        }
+
+        try {
+            client.setClientId(clientId);
+            Client clientNew = this.clientService.updateClient(client);
+            if(clientNew != null)
+                return ResponseEntity.status(HttpStatus.ACCEPTED).body(clientNew);
+            else {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Error("Bad Request data"));
+            }
+        } catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new Error(ex.getMessage()));
+        }
+    }
 }
