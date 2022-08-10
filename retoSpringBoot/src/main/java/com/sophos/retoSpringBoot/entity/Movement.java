@@ -1,5 +1,8 @@
 package com.sophos.retoSpringBoot.entity;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -21,13 +24,16 @@ public class Movement {
     private String period;
     @Column(name = "status", nullable = false)
     private String estatus;
-    @Column(name = "movement_date", nullable = true, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    @Column(name = "movement_date")
+    @CreationTimestamp
     private Date movementDate;
-    @Column(name = "creation_date", nullable = true, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    @Column(name = "creation_date")
+    @CreationTimestamp
     private Date creationDate;
     @Column(name = "user_creation", nullable = false)
     private String userCreation;
-    @Column(name = "modification_date", nullable = true, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    @Column(name = "modification_date")
+    @UpdateTimestamp
     private Date modificationDate;
     @Column(name = "user_modification", nullable = false)
     private String userModification;

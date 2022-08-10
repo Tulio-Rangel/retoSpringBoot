@@ -102,4 +102,30 @@ public class MovementController {
         }
     }
 
+    @PutMapping("/movement/{movementId}")
+    @ResponseBody
+    public ResponseEntity<Object> updateMovement(@PathVariable(name = "movementId") Long movementId, @RequestBody Movement movement) {
+
+        class Error {
+            public String message;
+            public Error(String message) {
+                this.message = message;
+            }
+            public String getMessage() {
+                return message;
+            }
+        }
+        try {
+            movement.setMovementId(movementId);
+            Movement movementNew = this.movementService.updateMovement(movement);
+            if(movementNew != null)
+                return ResponseEntity.status(HttpStatus.ACCEPTED).body(movementNew);
+            else {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Error("Bad Request data"));
+            }
+        } catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new Error(ex.getMessage()));
+        }
+
+    }
 }

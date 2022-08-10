@@ -1,5 +1,8 @@
 package com.sophos.retoSpringBoot.entity;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
@@ -19,13 +22,16 @@ public class Account {
     String statusAccount;
     @Column(name = "credit_value", nullable = false)
     String creditValue;
-    @Column(name = "open_date", nullable = true, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    @Column(name = "open_date")
+    @CreationTimestamp
     Date openDate;
-    @Column(name = "creation_date", nullable = true, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    @Column(name = "creation_date")
+    @CreationTimestamp
     Date creationDate;
     @Column(name = "user_creation", nullable = false)
     String userCreation;
-    @Column(name = "modification_date", nullable = true, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    @Column(name = "modification_date")
+    @UpdateTimestamp
     Date modificationDate;
     @Column(name = "user_modification", nullable = false)
     String userModification;

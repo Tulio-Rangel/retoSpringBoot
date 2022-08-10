@@ -1,6 +1,10 @@
 package com.sophos.retoSpringBoot.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -38,11 +42,13 @@ public class Client {
     private String secondLastName;
     @Column(name = "birthday", nullable = false)
     private Date birthday;
-    @Column(name = "creation_date", nullable = true, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    @Column(name = "creation_date")
+    @CreationTimestamp
     private Date creationDate;
     @Column(name = "user_creation", nullable = false)
     private String userCreation;
-    @Column(name = "modification_date", nullable = true, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    @Column(name = "modification_date")
+    @UpdateTimestamp
     private Date modificationDate;
     @Column(name = "user_modification", nullable = false)
     private String userModification;

@@ -101,4 +101,31 @@ public class AccountController {
             return null;
         }
     }
+
+    @PutMapping("/account/{accountId}")
+    @ResponseBody
+    public ResponseEntity<Object> updateAccount(@PathVariable(name = "accountId") Long accountId, @RequestBody Account account) {
+
+        class Error {
+            public String message;
+            public Error(String message) {
+                this.message = message;
+            }
+            public String getMessage() {
+                return message;
+            }
+        }
+        try {
+            account.setAccountId(accountId);
+            Account accountNew = this.accountService.updateAccount(account);
+            if(accountNew != null)
+                return ResponseEntity.status(HttpStatus.ACCEPTED).body(accountNew);
+            else {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Error("Bad Request data"));
+            }
+        } catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new Error(ex.getMessage()));
+        }
+
+    }
 }
