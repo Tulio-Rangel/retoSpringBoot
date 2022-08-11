@@ -54,8 +54,8 @@ public class Client {
     private String userModification;
 
     //Relation with Accounts
-    @OneToMany
-    @JoinColumn(name = "id_account")
+    @OneToMany(targetEntity = Account.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "ca_fk", referencedColumnName = "client_id")
     private List<Account> accounts;
 
     //Constructors

@@ -35,6 +35,11 @@ public class ClientServiceImp implements ClientService {
 
     @Override
     public void deleteClient(Long clientId) {
-        clientRepository.deleteById(clientId);
+        if (clientRepository.findByClientId(clientId).getAccounts().size() > 0) {
+            System.out.println("No se puede eliminar este cliente porque tiene al menos una cuenta");
+        } else {
+            clientRepository.deleteById(clientId);
+        }
+
     }
 }

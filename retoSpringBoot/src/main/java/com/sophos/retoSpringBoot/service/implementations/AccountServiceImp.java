@@ -33,6 +33,10 @@ public class AccountServiceImp implements AccountService {
 
     @Override
     public void deleteAccount(Long accountId) {
-        accountRepository.deleteById(accountId);
+        if (accountRepository.findByAccountId(accountId).getMovements().size() > 0) {
+            System.out.println("No se puede eliminar esta cuenta porque tiene al menos un movimiento");
+        } else {
+            accountRepository.deleteById(accountId);
+        }
     }
 }

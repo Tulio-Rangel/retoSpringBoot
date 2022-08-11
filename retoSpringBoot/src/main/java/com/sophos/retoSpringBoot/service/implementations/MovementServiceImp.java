@@ -33,6 +33,10 @@ public class MovementServiceImp implements MovementService {
 
     @Override
     public void deleteMovement(Long movementId) {
-        movementRepository.deleteById(movementId);
+        if (movementRepository.findByMovementId(movementId).getEstatus().equals("Activo")) {
+            System.out.println("No se puede eliminar un movimiento activo");
+        } else {
+            movementRepository.deleteById(movementId);
+        }
     }
 }

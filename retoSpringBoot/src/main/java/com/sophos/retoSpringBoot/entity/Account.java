@@ -37,8 +37,8 @@ public class Account {
     String userModification;
 
     //Relation with Movements
-    @OneToMany
-    @JoinColumn(name = "id_movement")
+    @OneToMany(targetEntity = Movement.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "am_fk", referencedColumnName = "account_id")
     private List<Movement> movements;
 
     //Constructors
