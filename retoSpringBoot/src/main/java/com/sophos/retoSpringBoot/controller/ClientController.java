@@ -60,21 +60,12 @@ public class ClientController {
 
     @DeleteMapping("/client/{clientId}")
     @ResponseBody
-    public ResponseEntity<Client> deleteClient(@PathVariable("clientId") Long clientId) {
-        Client response = null;
-        HttpStatus status = null;
-        String message = null;
+    public ResponseEntity deleteClient(@PathVariable("clientId") Long clientId) {
         try {
-            response = clientService.readClient(clientId);
-            if (response != null) {
-                clientService.deleteClient(clientId);
-                status = HttpStatus.ACCEPTED;
-                message = "Cliente eliminado satisfactoriamente";
-                return ResponseEntity.status(status).body(response);
+            if (clientService.deleteClient(clientId)) {
+                return ResponseEntity.status(HttpStatus.ACCEPTED).body("El cliente con id " +clientId+ " fue eliminado correctamente");
             } else {
-                status = HttpStatus.BAD_REQUEST;
-                message = "El cliente con el id " +clientId+ " no pudo ser eliminado";
-                return ResponseEntity.status(status).body(response);
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("El cliente con el id " +clientId+ " no pudo ser eliminado");
             }
         } catch (Exception e) {
             return null;

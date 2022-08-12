@@ -7,5 +7,5 @@ public interface MovementService {
     Movement readMovement(Long movementId);
     Movement readAllMovementByAccountId(Long accountId);
     Movement updateMovement(Movement movement);
-    void deleteMovement(Long movementId);
+    boolean deleteMovement(Long movementId);
 }

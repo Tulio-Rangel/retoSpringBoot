@@ -81,21 +81,12 @@ public class AccountController {
 
     @DeleteMapping("/account/{accountId}")
     @ResponseBody
-    public ResponseEntity<Account> deleteAccount(@PathVariable("accountId") Long accountId) {
-        Account response = null;
-        HttpStatus status = null;
-        String message = null;
+    public ResponseEntity deleteAccount(@PathVariable("accountId") Long accountId) {
         try {
-            response = accountService.readAccount(accountId);
-            if (response != null) {
-                accountService.deleteAccount(accountId);
-                status = HttpStatus.ACCEPTED;
-                message = "Cuenta eliminada satisfactoriamente";
-                return ResponseEntity.status(status).body(response);
+            if (accountService.deleteAccount(accountId)) {
+                return ResponseEntity.status(HttpStatus.ACCEPTED).body("Cuenta eliminada satisfactoriamente");
             } else {
-                status = HttpStatus.BAD_REQUEST;
-                message = "La cuenta con el id " +accountId+ " no pudo ser eliminada";
-                return ResponseEntity.status(status).body(response);
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("La cuenta con el id " +accountId+ " no pudo ser eliminada");
             }
         } catch (Exception e) {
             return null;

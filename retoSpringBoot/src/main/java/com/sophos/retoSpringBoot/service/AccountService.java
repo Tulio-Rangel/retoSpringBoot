@@ -7,5 +7,5 @@ public interface AccountService {
     Account readAccount(Long accountId);
     Account readAllAccountByClientId(Long clientId);
     Account updateAccount(Account account);
-    void deleteAccount(Long accountId);
+    boolean deleteAccount(Long accountId);
 }

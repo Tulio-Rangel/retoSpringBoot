@@ -81,21 +81,12 @@ public class MovementController {
 
     @DeleteMapping("/movement/{movementId}")
     @ResponseBody
-    public ResponseEntity<Movement> deleteMovement(@PathVariable("movementId") Long movementId) {
-        Movement response = null;
-        HttpStatus status = null;
-        String message = null;
+    public ResponseEntity deleteMovement(@PathVariable("movementId") Long movementId) {
         try {
-            response = movementService.readMovement(movementId);
-            if (response != null) {
-                movementService.deleteMovement(movementId);
-                status = HttpStatus.ACCEPTED;
-                message = "Movimiento eliminado satisfactoriamente";
-                return ResponseEntity.status(status).body(response);
+            if (movementService.deleteMovement(movementId)) {
+                return ResponseEntity.status(HttpStatus.ACCEPTED).body("Movimiento eliminado satisfactoriamente");
             } else {
-                status = HttpStatus.BAD_REQUEST;
-                message = "El movimiento con el id " +movementId+ " no pudo ser eliminado";
-                return ResponseEntity.status(status).body(response);
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("El movimiento con el id " +movementId+ " no pudo ser eliminado");
             }
         } catch (Exception e) {
             return null;
